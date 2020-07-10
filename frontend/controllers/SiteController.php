@@ -189,8 +189,6 @@ class SiteController extends Controller
             $model->code_email_conf = '';
             $model->status = 2;
             $model->save();
-//            var_dump($model);
-//            exit;
             Yii::$app->session->setFlash('success', "Ваша пошта успішно підтверджена.");
             return $this->redirect(['site/login']);
         }

@@ -108,7 +108,6 @@ class SignupForm extends Model
         return $sendingResult;
     }
 
-
     /**
      * Signs user up.
      *

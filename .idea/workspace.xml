@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="caa67496-bb34-4cee-8ff6-803e3d975d1e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/common/models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/common/models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/models/SignupForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/models/SignupForm.php" afterDir="false" />
-    </list>
+    <list default="true" id="caa67496-bb34-4cee-8ff6-803e3d975d1e" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,8 +37,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/common/models/User.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="35" column="6" selection-start-line="35" selection-start-column="6" selection-end-line="35" selection-end-column="6" />
+            <state relative-caret-position="141">
+              <caret line="117" column="85" selection-start-line="117" selection-start-column="85" selection-end-line="117" selection-end-column="85" />
               <folding>
                 <element signature="e#32#40#0#PHP" expanded="true" />
               </folding>
@@ -52,8 +49,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common/models/LoginForm.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-590">
-              <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+            <state relative-caret-position="328">
+              <caret line="72" column="36" selection-start-line="72" selection-start-column="36" selection-end-line="72" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -345,12 +342,12 @@
       <workItem from="1594297915260" duration="122000" />
       <workItem from="1594300672501" duration="10361000" />
       <workItem from="1594384311117" duration="2930000" />
-      <workItem from="1594390049881" duration="4890000" />
+      <workItem from="1594390049881" duration="5579000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="135200000" />
+    <option name="totallyTimeSpent" value="135889000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -707,8 +704,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/common/models/LoginForm.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-590">
-          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+        <state relative-caret-position="328">
+          <caret line="72" column="36" selection-start-line="72" selection-start-column="36" selection-end-line="72" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -724,8 +721,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/common/models/User.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="35" column="6" selection-start-line="35" selection-start-column="6" selection-end-line="35" selection-end-column="6" />
+        <state relative-caret-position="141">
+          <caret line="117" column="85" selection-start-line="117" selection-start-column="85" selection-end-line="117" selection-end-column="85" />
           <folding>
             <element signature="e#32#40#0#PHP" expanded="true" />
           </folding>
