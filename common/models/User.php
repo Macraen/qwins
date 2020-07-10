@@ -106,15 +106,15 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Finds user by username
+     * Finds user by email
      *
-     * @param string $username
+     * @param string $email
      * @return static|null
      */
-    /*public static function findByUsername($username)
+    public static function findByEmail($email)
     {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
-    }*/
+        return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
+    }
 
     /**
      * Finds user by password reset token
@@ -164,7 +164,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getAuthKey()
     {
-        return $this->auth_key;
+        //return $this->auth_key;
     }
 
     /**
@@ -172,7 +172,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validateAuthKey($authKey)
     {
-        return $this->getAuthKey() == $authKey;
+        //return $this->getAuthKey() == $authKey;
     }
 
     /**
@@ -204,19 +204,19 @@ class User extends ActiveRecord implements IdentityInterface
         $this->auth_key = Yii::$app->security->generateRandomString();
     }
 
-//    /**
-//     * Generates new password reset token
-//     */
-//    public function generatePasswordResetToken()
-//    {
-//        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
-//    }
-//
-//    /**
-//     * Removes password reset token
-//     */
-//    public function removePasswordResetToken()
-//    {
-//        $this->password_reset_token = null;
-//    }
+    /**
+     * Generates new password reset token
+     */
+    public function generatePasswordResetToken()
+    {
+        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+    }
+
+    /**
+     * Removes password reset token
+     */
+    public function removePasswordResetToken()
+    {
+        $this->password_reset_token = null;
+    }
 }

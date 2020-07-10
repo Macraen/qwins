@@ -9,6 +9,7 @@ use yii\bootstrap\ActiveForm;
 
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
+//->hint('Введіть країну.')
 ?>
 <div class="site-signup">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -29,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'email')->input('email')?>
 
-                <?= $form->field($model, 'country')->textInput()->hint('Введіть країну.')?>
+                <?= $form->field($model, 'country')->textInput()?>
 
                 <?= $form->field($model, 'city')->textInput()?>
 
