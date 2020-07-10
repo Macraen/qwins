@@ -29,7 +29,9 @@ class m200617_134358_create_user_table extends Migration
             'avatar' => $this->string(255),
             'code_email_conf' => $this->string(255),
             'active' => $this->integer(),
-            'token_reset_pass'=> $this->string(50)
+            'token_reset_pass'=> $this->string(50),
+//            'created_at' => $this->string(50),
+//            'updated_at' => $this->string(50)
         ]);
     }
 

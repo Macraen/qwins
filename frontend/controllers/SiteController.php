@@ -1,6 +1,8 @@
 <?php
 namespace frontend\controllers;
 
+use Codeception\Lib\Notification;
+use common\models\User;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -149,18 +151,55 @@ class SiteController extends Controller
     public function actionSignup()
     {
         $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
-                }
+        if (Yii::$app->request->isPost) {
+            $model->load(Yii::$app->request->post());
+            $model->code_email_conf = Yii::$app->getSecurity()->generateRandomString(10);
+            if ($model->signup()) {
+                $model->sendConfirmationLink();
+                Yii::$app->session->setFlash('success', "Посилання для підтвердження реєстрації відправлено на Вашу електронну пошту");
+                return $this->redirect(['site/login']);
+                //return $this->goHome();
+
+                /*if (Yii::$app->getUser()->login($user)) {
+                return $this->goHome();
+                }*/
+
             }
+            return $this->goHome();
         }
 
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
+        return $this->render('signup', ['model' => $model]);
     }
+
+    public function actionConfirmemail()
+    {
+        if (!Yii::$app->user->isGuest)
+        {
+            return $this->goHome();
+        }
+        $code_email_conf = htmlspecialchars(Yii::$app->request->get('code_email_conf'));
+        $email = htmlspecialchars(Yii::$app->request->get('email'));
+
+        $model = User::find()->where(['email' => $email, 'code_email_conf' => $code_email_conf])->one();
+
+        if ($model->id)
+        {
+//            var_dump($model);
+//            exit;
+            $model->code_email_conf = '';
+            $model->status = 2;
+            $model->save();
+//            var_dump($model);
+//            exit;
+            Yii::$app->session->setFlash('success', "Ваша пошта успішно підтверджена.");
+            return $this->redirect(['site/login']);
+        }
+        else {
+            return $this->goHome();
+        }
+    }
+
+
 
     /**
      * Requests password reset.

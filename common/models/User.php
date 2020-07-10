@@ -3,7 +3,6 @@ namespace common\models;
 
 use Yii;
 use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
@@ -11,20 +10,30 @@ use yii\web\IdentityInterface;
  * User model
  *
  * @property integer $id
- * @property string $username
- * @property string $password_hash
- * @property string $password_reset_token
+ * @property string $surname
+ * @property string $name
+ * @property string $patronymic
+ * @property string $password
  * @property string $email
- * @property string $auth_key
+ * @property string $birth_date
+ * @property string $phone_number
+ * @property string $country
+ * @property string $city
  * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
- * @property string $password write-only password
+ * @property string $serial_number
+ * @property integer $isAdmin
+ * @property string $avatar
+ * @property string $code_email_conf
+ * @property integer $active
+ * @property string $token_reset_pass
  */
+
+
 class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
+    const STATUS_ACTIVE = 1;
+    const isAdmin = 0;
 
 
     /**
@@ -35,15 +44,38 @@ class User extends ActiveRecord implements IdentityInterface
         return '{{%user}}';
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'surname' => 'Surname',
+            'name' => 'Name',
+            'patronymic' => 'Patronymic',
+            'password' => 'Password',
+            'email' => 'Email',
+            'birth_date' => 'Birth_date',
+            'phone_number' => 'Phone_number',
+            'country' => 'Country',
+            'city' => 'City',
+            'status' => 'Status',
+            'serial_number' => 'Serial_number',
+            'isAdmin' => 'Is_Admin',
+            'avatar' => 'Avatar',
+            'code_email_conf' => 'Code_email_conf',
+            'active' => 'Active',
+            'token_reset_pass' => 'Token_reset_pass',
+        ];
+    }
+
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-        ];
-    }
+//    public function behaviors()
+//    {
+//        return [
+//            TimestampBehavior::className(),
+//        ];
+//    }
 
     /**
      * @inheritdoc
@@ -52,6 +84,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['isAdmin', 'default', 'value' => self::isAdmin],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
         ];
     }
@@ -78,10 +111,10 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername($username)
+    /*public static function findByUsername($username)
     {
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
-    }
+    }*/
 
     /**
      * Finds user by password reset token
@@ -139,7 +172,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validateAuthKey($authKey)
     {
-        return $this->getAuthKey() === $authKey;
+        return $this->getAuthKey() == $authKey;
     }
 
     /**
@@ -150,7 +183,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return Yii::$app->security->validatePassword($password, $this->password_hash);
+        return $this->password = sha1($password);
     }
 
     /**
@@ -160,7 +193,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function setPassword($password)
     {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+        return $this->password = sha1($password);
     }
 
     /**
@@ -171,19 +204,19 @@ class User extends ActiveRecord implements IdentityInterface
         $this->auth_key = Yii::$app->security->generateRandomString();
     }
 
-    /**
-     * Generates new password reset token
-     */
-    public function generatePasswordResetToken()
-    {
-        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
-    }
-
-    /**
-     * Removes password reset token
-     */
-    public function removePasswordResetToken()
-    {
-        $this->password_reset_token = null;
-    }
+//    /**
+//     * Generates new password reset token
+//     */
+//    public function generatePasswordResetToken()
+//    {
+//        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+//    }
+//
+//    /**
+//     * Removes password reset token
+//     */
+//    public function removePasswordResetToken()
+//    {
+//        $this->password_reset_token = null;
+//    }
 }
