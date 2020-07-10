@@ -33,6 +33,7 @@ class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 1;
+    const STATUS_ACT_EMAIL = 2;
     const isAdmin = 0;
 
 
@@ -82,10 +83,11 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function rules()
     {
+        //['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED],
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['isAdmin', 'default', 'value' => self::isAdmin],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['active','default', 'value' => '1'],
         ];
     }
 
@@ -94,7 +96,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['id' => $id, 'status' => self::STATUS_ACT_EMAIL]);
     }
 
     /**
@@ -113,7 +115,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByEmail($email)
     {
-        return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['email' => $email, 'status' => self::STATUS_ACT_EMAIL]);
     }
 
     /**
@@ -130,7 +132,7 @@ class User extends ActiveRecord implements IdentityInterface
 
         return static::findOne([
             'password_reset_token' => $token,
-            'status' => self::STATUS_ACTIVE,
+            'status' => self::STATUS_ACT_EMAIL,
         ]);
     }
 

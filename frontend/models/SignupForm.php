@@ -25,6 +25,7 @@ class SignupForm extends Model
     public $password;
     public $conf_pass;
     public $code_email_conf;
+    public $active;
     public $status;
     /*public $username;
     public $email;
