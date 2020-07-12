@@ -55,15 +55,26 @@ return [
                 'encryption' => 'ssl',
             ],
         ],
-
-
         'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
+            'showScriptName' => false, //отключаем r=routes
+            //запретить стандартные URL если не соответствует правилам класса
+            'enableStrictParsing' => false,
+            'enablePrettyUrl' => true, //отключаем index.php
             'rules' => [
+                '' => 'site/index',
+
+
+                '<action>'=>'site/<action>',
             ],
         ],
 
+        'assetManager' => [
+            'basePath' => '@webroot/assets',
+            'baseUrl' => '@web/assets'
+        ],
+        'request' => [
+            'baseUrl' => ''
+        ]
     ],
     'params' => $params,
 ];

@@ -1,25 +1,54 @@
-Options +FollowSymLinks
-IndexIgnore */*
-RewriteEngine on
+#    Options +FollowSymLinks
+#IndexIgnore */*
+#RewriteEngine on
+#
+#
+#
+## if request begins with /admin remove admin and ad /backend/web/
+#RewriteCond %{REQUEST_URI} ^/admin
+#RewriteRule ^admin\/?(.*) /backend/web/$1
+#
+## other requests add /frontend/web/$1
+#RewriteCond %{REQUEST_URI} !^/(frontend/web|backend/web|admin)
+#RewriteRule (.*) /frontend/web/$1
+#
+## if frontend request
+#RewriteCond %{REQUEST_URI} ^/frontend/web
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule . /frontend/web/index.php
+#
+## if backend request
+#RewriteCond %{REQUEST_URI} ^/backend/web
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule . /backend/web/index.php
 
+<IfModule mod_rewrite.c>
+    Options +FollowSymlinks
+    RewriteEngine On
+</IfModule>
 
+<IfModule mod_rewrite.c>
+    # deal with admin first
+    RewriteCond %{REQUEST_URI} ^/(admin)
+    RewriteRule ^admin/assets/(.*)$ backend/web/assets/$1 [L]
+    RewriteRule ^admin/css/(.*)$ backend/web/css/$1 [L]
 
-# if request begins with /admin remove admin and ad /backend/web/
-RewriteCond %{REQUEST_URI} ^/admin
-RewriteRule ^admin\/?(.*) /backend/web/$1
+    RewriteCond %{REQUEST_URI} !^/backend/web/(assets|css)/
+    RewriteCond %{REQUEST_URI} ^/(admin)
+    RewriteRule ^.*$ backend/web/index.php [L]
 
-# other requests add /frontend/web/$1
-RewriteCond %{REQUEST_URI} !^/(frontend/web|backend/web|admin)
-RewriteRule (.*) /frontend/web/$1
+    RewriteCond %{REQUEST_URI} ^/(assets|css|js|images)
+    RewriteRule ^assets/(.*)$ frontend/web/assets/$1 [L]
+    RewriteRule ^css/(.*)$ frontend/web/css/$1 [L]
+    RewriteRule ^js/(.*)$ frontend/web/js/$1 [L]
+    RewriteRule ^images/(.*)$ frontend/web/images/$1 [L]
+    RewriteRule ^(.*)$ frontend/web/$1 [L]
 
-# if frontend request
-RewriteCond %{REQUEST_URI} ^/frontend/web
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /frontend/web/index.php
-
-# if backend request
-RewriteCond %{REQUEST_URI} ^/backend/web
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /backend/web/index.php
+    RewriteCond %{REQUEST_URI} !^/(frontend|backend)/web/(assets|css|js)/
+    RewriteCond %{REQUEST_URI} !index.php
+    RewriteCond %{REQUEST_FILENAME} !-f [OR]
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^.*$ frontend/web/index.php
+</IfModule>
